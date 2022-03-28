@@ -114,7 +114,7 @@ class MahasiswaController extends Controller
             'alamat'=>$request->Alamat,
         ]);
 
-        Mahasiswa::find($id)->update($request->all());
+        // Mahasiswa::find($id)->update($request->all());
 
         return redirect()->route('mahasiswa.index')
             ->with('success', 'Mahasiswa Berhasil Diupdate');
@@ -132,17 +132,4 @@ class MahasiswaController extends Controller
         return redirect()->route('mahasiswa.index')
             -> with('success', 'Mahasiswa Berhasil Dihapus');
     }
-
-    public function search(Request $request)
-	{
-		// menangkap data pencarian
-		$cari = $request->cari;
- 
-    		// mengambil data dari table pegawai sesuai pencarian data
-		$mahasiswa = Mahasiswa::where('nama','like',"%".$cari."%")->paginate(4);
- 
-    		// mengirim data pegawai ke view index
-		return view('mahasiswa.index',['mahasiswa' => $mahasiswa]);
- 
-	}
 }
