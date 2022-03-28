@@ -13,7 +13,9 @@ class MahasiswaController extends Controller
      */
     public function index()
     {
-        //
+        $mahasiswa = Mahasiswa::all(); // Mengambil semua isi tabel
+        $paginate = Mahasiswa::orderBy('id_mahasiswa', 'asc')->paginate(3);
+        return view('mahasiswa.index', ['mahasiswa' => $mahasiswa,'paginate'=>$paginate]);
     }
 
     /**
@@ -23,7 +25,7 @@ class MahasiswaController extends Controller
      */
     public function create()
     {
-        //
+        return view('mahasiswa.create');
     }
 
     /**
@@ -34,7 +36,18 @@ class MahasiswaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'Nim' => 'required',
+            'Nama' => 'required',
+            'Kelas' => 'required',
+            'Jurusan' => 'required',
+        ]);
+
+        
+        Mahasiswa::create($request->all());
+        
+        return redirect()->route('mahasiswa.index')
+            ->with('success', 'Mahasiswa Berhasil Ditambahkan');
     }
 
     /**
@@ -45,7 +58,8 @@ class MahasiswaController extends Controller
      */
     public function show($id)
     {
-        //
+        $Mahasiswa = Mahasiswa::where('nim', $nim)->first();
+        return view('mahasiswa.detail', compact('Mahasiswa'));
     }
 
     /**
@@ -56,7 +70,8 @@ class MahasiswaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $Mahasiswa = DB::table('mahasiswa')->where('nim', $nim)->first();
+        return view('mahasiswa.edit', compact('Mahasiswa'));
     }
 
     /**
@@ -68,7 +83,17 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'Nim' => 'required',
+            'Nama' => 'required',
+            'Kelas' => 'required',
+            'Jurusan' => 'required',
+            ]);
+
+        Mahasiswa::find($nim)->update($request->all());
+
+        return redirect()->route('mahasiswa.index')
+            ->with('success', 'Mahasiswa Berhasil Diupdate');
     }
 
     /**
@@ -79,6 +104,8 @@ class MahasiswaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Mahasiswa::find($nim)->delete();
+        return redirect()->route('mahasiswa.index')
+            -> with('success', 'Mahasiswa Berhasil Dihapus');
     }
 }
