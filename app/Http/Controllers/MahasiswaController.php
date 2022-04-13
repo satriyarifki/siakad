@@ -92,7 +92,7 @@ class MahasiswaController extends Controller
      */
     public function show($id)
     {
-        if (!empty('kod') ) {
+        if (!empty('') ) {
             // $Mahasiswa = Mahasiswa::with('Matakuliah')->where('nim', $id)->first();
             $Mahasiswa = Mahasiswa::where('nim', $id)->first();
             $Matakuliah = Mahasiswa::find($Mahasiswa->id)->matakuliah;

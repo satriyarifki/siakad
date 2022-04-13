@@ -4,9 +4,9 @@
     <div class="row justify-content-center align-items-center">
     <div class="card" style="width: 24rem;">
     <div class="card-header">
-    Detail Mahasiswa
+    Kartu Studi Mahasiswa
     </div>
-    <div class="card-body">
+    <div class="card-body No" id="No" name="No">
     <ul class="list-group list-group-flush">
     <li class="list-group-item"><b>Nim: </b>{{$Mahasiswa->nim}}</li>
     <li class="list-group-item"><b>Nama: </b>{{$Mahasiswa->nama}}</li>
