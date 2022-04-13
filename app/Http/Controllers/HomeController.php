@@ -25,4 +25,9 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function nilai($id)
+    {
+        $Mahasiswa = Mahasiswa_Matakuliah::with('Mahasiswa', 'Matakuliah')->where('nim', $id)->first();
+        return view('nilai', compact('Mahasiswa', 'Matakuliah'));
+    }
 }

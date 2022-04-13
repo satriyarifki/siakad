@@ -7,12 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\Mahasiswa as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\MataKuliah;
 
 class Mahasiswa extends Model
 {
     use HasFactory;
     protected $table='mahasiswa';
-    protected $primaryKey='id_mahasiswa';
+    protected $primaryKey='id';
     /**
     * The attributes that are mass assignable.
     *
@@ -29,6 +30,10 @@ class Mahasiswa extends Model
     ];
     public function kelas(){
         return $this->belongsTo(Kelas::class);
+    }
+
+    public function matakuliah(){
+        return $this->belongsToMany(MataKuliah::class)->withPivot('nilai');
     }
 
 }

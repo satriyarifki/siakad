@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Mahasiswa;
+use App\Models\Matakuliah;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Kelas;
+use App\Models\Mahasiswa_Matakuliah;
 
 class MahasiswaController extends Controller
 {
@@ -25,7 +27,9 @@ class MahasiswaController extends Controller
         }
          // Mengambil semua isi tabel
         $mahasiswa= Mahasiswa::with('kelas')->get();
-        $paginate = Mahasiswa::orderBy('id_mahasiswa', 'asc')->paginate(4);
+        // $mahasiswa_matakuliah= Mahasiswa_Matakuliah::with('matakuliah')->get();
+        // $mahasiswa_matakuliah= Mahasiswa_Matakuliah::with('mahasiswa')->get();
+        $paginate = Mahasiswa::orderBy('id', 'asc')->paginate(4);
         return view('mahasiswa.index', ['mahasiswa' => $mahasiswa,'paginate'=>$paginate]);
     }
 
@@ -88,8 +92,23 @@ class MahasiswaController extends Controller
      */
     public function show($id)
     {
-        $Mahasiswa = Mahasiswa::with('kelas')->where('nim', $id)->first();
-        return view('mahasiswa.detail', compact('Mahasiswa'));
+        if (!empty('kod') ) {
+            // $Mahasiswa = Mahasiswa::with('Matakuliah')->where('nim', $id)->first();
+            $Mahasiswa = Mahasiswa::where('nim', $id)->first();
+            $Matakuliah = Mahasiswa::find($Mahasiswa->id)->matakuliah;
+            
+            // echo ($Pivot->matakuliah_id);
+            // echo ($Matakuliah->nama_matkul);
+            // echo $Matakul;
+            return view('mahasiswa.nilai', compact('Mahasiswa','Matakuliah'));
+        } else {
+            $Mahasiswa = Mahasiswa::with('kelas')->where('nim', $id)->first();
+            return view('mahasiswa.detail', compact('Mahasiswa'));
+        }
+        
+        
+
+        
     }
 
     /**
@@ -167,4 +186,11 @@ class MahasiswaController extends Controller
         return redirect()->route('mahasiswa.index')
             -> with('success', 'Mahasiswa Berhasil Dihapus');
     }
+
+    public function nilai($id)
+    {
+        $Mahasiswa = Mahasiswa_Matakuliah::with('Mahasiswa', 'Matakuliah')->where('nim', $id)->first();
+        return view('mahasiswa.nilai', compact('Mahasiswa', 'Matakuliah'));
+    }
+    
 }
