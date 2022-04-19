@@ -55,7 +55,7 @@ class MatkulController extends Controller
         // echo ($Pivot->matakuliah_id);
         // echo ($Matakuliah->nama_matkul);
         // echo $Matakul;
-        return view('mahasiswa.nilai', compact('Mahasiswa','Matakuliah'));
+        return view('mahasiswa.nilai', compact('Mahasiswa','Matakuliah', 'id'));
     }
 
     /**

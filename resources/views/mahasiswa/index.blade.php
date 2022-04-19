@@ -30,6 +30,7 @@
     @endif
     <table class="table table-bordered">
         <tr>
+            <th>Photo</th>
             <th>NIM</th>
             <th>Nama</th>
             <th>Email</th>
@@ -41,6 +42,7 @@
         </tr>
         @foreach ($mahasiswa as $mhs)
         <tr>
+            <td><img width="150px"src="{{asset('storage/'.$mhs->featured_image)}}"></td>
             <td>{{ $mhs ->nim }}</td>
             <td>{{ $mhs ->nama }}</td>
             <td>{{ $mhs ->email }}</td>

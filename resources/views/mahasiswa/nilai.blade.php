@@ -1,7 +1,7 @@
 @extends('mahasiswa.layout')
 @section('content')
-    <div class="container mt-5">
-    <div class="row justify-content-center align-items-center">
+    <div class="container d-flex justify-content-between mt-5">
+    <div class="row  align-items-center">
     <div class="card" style="width: 24rem;">
     <div class="card-header">
     Kartu Studi Mahasiswa
@@ -14,6 +14,13 @@
     <li class="list-group-item"><b>Jurusan: </b>{{$Mahasiswa->jurusan}}</li>
     </ul>
     </div>
+    </div>
+    </div>
+    <div style="margin:0px 0px 0px 70px;">
+        <a class="btn btn-success" href="{{ route('cetak',$Mahasiswa->nim) }}"> Cetak PDF</a>
+    </div>
+    </div> 
+    <br><br>
     <table class="table table-bordered">
         <tr>
             <th>Mata Kuliah</th>
@@ -32,7 +39,6 @@
         @endforeach
     </table>
     <a class="btn btn-success mt-3" href="{{ route('mahasiswa.index') }}">Kembali</a>
-    </div>
-    </div>
-    </div>
+    
+    <br><br>
 @endsection

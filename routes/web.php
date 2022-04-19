@@ -5,6 +5,7 @@ use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\MatkulController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PDFController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,4 +25,5 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('mahasiswa', MahasiswaController::class);
+Route::get('cetak/{id}', [PDFController::class, 'cetak'])->name('cetak');
 Route::resource('matkul', MatkulController::class);
